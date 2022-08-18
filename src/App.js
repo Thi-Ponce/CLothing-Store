@@ -1,13 +1,38 @@
-import { Routes, Route } from 'react-router-dom';
-import Navigation from './routes/navigation/navigation.component';
-import Home from './routes/homepage/homepage.component';
-
-const App = () => (
-  <Routes>
-    <Route path="/" element={<Navigation />}>
-      <Route index element={<Home />} />
-    </Route>
-  </Routes>
-);
+const App = () => {
+  return (
+    <div className="categories-container">
+      <div className="category-container">
+        <div className="category-body">
+          <h2>Hats</h2>
+          <p>Search</p>
+        </div>
+      </div>
+      <div className="category-container">
+        <div className="category-body">
+          <h2>Jackets</h2>
+          <p>Search</p>
+        </div>
+      </div>
+      <div className="category-container">
+        <div className="category-body">
+          <h2>Sneakers</h2>
+          <p>Search</p>
+        </div>
+      </div>
+      <div className="category-container">
+        <div className="category-body">
+          <h2>Womens</h2>
+          <p>Search</p>
+        </div>
+      </div>
+      <div className="category-container">
+        <div className="category-body">
+          <h2>Mens</h2>
+          <p>Search</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default App;
