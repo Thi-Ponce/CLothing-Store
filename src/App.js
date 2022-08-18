@@ -1,40 +1,13 @@
-const App = () => {
-  const categories = [
-    {
-      title: 'Hats',
-      id: 1,
-    },
-    {
-      title: 'Jackets',
-      id: 2,
-    },
-    {
-      title: 'Sneakers',
-      id: 3,
-    },
-    {
-      title: 'Womens',
-      id: 4,
-    },
-    {
-      title: 'Mens',
-      id: 5,
-    },
-  ];
+import { Routes, Route } from 'react-router-dom';
+import Navigation from './routes/navigation/navigation.component';
+import Home from './routes/homepage/homepage.component';
 
-  return (
-    <div className="categories-container">
-      {categories.map(({ title }) => (
-        <div className="category-container">
-          <div className="bg-image" />
-          <div className="category-body">
-            <h2>{title}</h2>
-            <p>Search</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+const App = () => (
+  <Routes>
+    <Route path="/" element={<Navigation />}>
+      <Route index element={<Home />} />
+    </Route>
+  </Routes>
+);
 
 export default App;
