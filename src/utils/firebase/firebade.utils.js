@@ -1,6 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import {
+  getFirestore, doc, getDoc, setDoc,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDzNWCg6rdFfcwsV6-ZTfS7927LAZEGlos',
@@ -14,11 +16,11 @@ const firebaseConfig = {
 // eslint-disable-next-line no-unused-vars
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: 'select_account' });
+const googleprovider = new GoogleAuthProvider();
+googleprovider.setCustomParameters({ prompt: 'select_account' });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleprovider);
 
 export const db = getFirestore();
 
