@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
+import { createAuthUserWithEmailAndPassword, createUserDocFromAuth } from '../../utils/firebase/firebade.utils';
 
 const defaultFormFields = {
   displayName: '',
@@ -16,7 +17,29 @@ const SignUpForm = () => {
     password,
     confirmPassword,
   } = formFields;
-  console.log(formFields);
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      await createUserDocFromAuth(user, { displayName });
+      resetFormFields();
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Email already in use');
+      } else {
+        console.error('user could not be created', error);
+      }
+    }
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,7 +49,7 @@ const SignUpForm = () => {
   return (
     <div>
       <h1>Sign Up</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <label>Name</label>
         <input
           type="text"
