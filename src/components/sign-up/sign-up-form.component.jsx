@@ -1,7 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
-import { createAuthUserWithEmailAndPassword, createUserDocFromAuth } from '../../utils/firebase/firebade.utils';
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocFromAuth,
+} from '../../utils/firebase/firebade.utils';
 import FormInput from '../form-input/form-input.component';
+import Button from '../buttons/button.component';
+import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
   displayName: '',
@@ -13,10 +18,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {
-    displayName,
-    email,
-    password,
-    confirmPassword,
+    displayName, email, password, confirmPassword,
   } = formFields;
 
   const resetFormFields = () => {
@@ -30,7 +32,10 @@ const SignUpForm = () => {
       return;
     }
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password,
+      );
       await createUserDocFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
@@ -48,7 +53,8 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
+    <div className="sign-up-container">
+      <h2 className="title">Don&apos;t have an account?</h2>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>Name</label>
@@ -90,7 +96,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <button type="submit">Sign Up</button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
