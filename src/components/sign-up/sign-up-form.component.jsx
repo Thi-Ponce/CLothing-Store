@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react';
 import { createAuthUserWithEmailAndPassword, createUserDocFromAuth } from '../../utils/firebase/firebade.utils';
+import FormInput from '../form-input/form-input.component';
 
 const defaultFormFields = {
   displayName: '',
@@ -51,7 +52,8 @@ const SignUpForm = () => {
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <label>Name</label>
-        <input
+        <FormInput
+          label="Display Name"
           type="text"
           required
           onChange={handleChange}
@@ -60,7 +62,8 @@ const SignUpForm = () => {
         />
 
         <label>Email</label>
-        <input
+        <FormInput
+          label="Email"
           type="email"
           required
           onChange={handleChange}
@@ -69,7 +72,8 @@ const SignUpForm = () => {
         />
 
         <label>Password</label>
-        <input
+        <FormInput
+          label="Password"
           type="password"
           required
           onChange={handleChange}
@@ -78,7 +82,8 @@ const SignUpForm = () => {
         />
 
         <label>Confirm Password</label>
-        <input
+        <FormInput
+          label="Confirm Password"
           type="password"
           required
           onChange={handleChange}
