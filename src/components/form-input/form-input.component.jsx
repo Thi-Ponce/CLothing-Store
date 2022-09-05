@@ -4,14 +4,14 @@ import './form-input.styles.scss';
 
 const FormInput = ({ label, ...otherProps }) => (
   <div className="group">
-    {label && (
-    <label className={`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>{label}</label>
-    )}
     <input
       className="form-input"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...otherProps}
     />
+    {label && (
+    <label className={`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>{label}</label>
+    )}
   </div>
 );
 
