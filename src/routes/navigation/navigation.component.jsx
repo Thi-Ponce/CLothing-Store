@@ -1,25 +1,45 @@
-import { Fragment } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { Fragment, useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import { UserContext } from '../../contexts/user.context';
+import { signOutUser } from '../../utils/firebase/firebade.utils';
 import './navigation.styles.scss';
 
-const Navigation = () => (
-  <>
-    <div className="navigation">
-      <Link to="/" className="logo-container">
-        <Logo className="logo" />
-      </Link>
-      <div className="nav-links-container">
-        <Link to="/shop" className="nav-link">
-          SHOP
+const Navigation = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
+
+  console.log(currentUser);
+  return (
+    <>
+      <div className="navigation">
+        <Link to="/" className="logo-container">
+          <Logo className="logo" />
         </Link>
-        <Link to="/auth" className="nav-link">
-          SIGN IN
-        </Link>
+        <div className="nav-links-container">
+          <Link to="/shop" className="nav-link">
+            SHOP
+          </Link>
+          {
+            currentUser ? (
+              <span className="nav-link" onClick={signOutHandler}>SIGN OUT</span>
+            ) : (
+              <Link to="/auth" className="nav-link">
+                SIGN IN
+              </Link>
+            )
+          }
+        </div>
       </div>
-    </div>
-    <Outlet />
-  </>
-);
+      <Outlet />
+    </>
+  );
+};
 
 export default Navigation;
