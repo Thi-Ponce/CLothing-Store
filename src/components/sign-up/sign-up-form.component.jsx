@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocFromAuth,
 } from '../../utils/firebase/firebade.utils';
 import FormInput from '../form-input/form-input.component';
 import Button from '../buttons/button.component';
-import { UserContext } from '../../contexts/user.context';
 import './sign-up-form.styles.scss';
 
 const defaultFormFields = {
@@ -21,8 +20,6 @@ const SignUpForm = () => {
   const {
     displayName, email, password, confirmPassword,
   } = formFields;
-
-  const { setCurrentUser } = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -39,7 +36,6 @@ const SignUpForm = () => {
         email,
         password,
       );
-      setCurrentUser(user);
       await createUserDocFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
@@ -55,7 +51,6 @@ const SignUpForm = () => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
-
   return (
     <div className="sign-up-container">
       <h2 className="title">Don&apos;t have an account?</h2>

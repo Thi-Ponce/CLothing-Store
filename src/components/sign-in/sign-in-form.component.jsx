@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import {
   signInWithGooglePopup,
   signInUserWithEmailAndPassword,
 } from '../../utils/firebase/firebade.utils';
 import FormInput from '../form-input/form-input.component';
 import Button from '../buttons/button.component';
-import { UserContext } from '../../contexts/user.context';
 import './sign-in-form.styles.scss';
 
 const defaultFormFields = {
@@ -20,23 +19,19 @@ const SignInForm = () => {
     email, password,
   } = formFields;
 
-  const { setCurrentUser } = useContext(UserContext);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
   const signInWithGoogle = async () => {
-    const response = await signInWithGooglePopup();
-    console.log(response);
+    await signInWithGooglePopup();
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { user } = await signInUserWithEmailAndPassword(email, password);
-      setCurrentUser(user);
+      await signInUserWithEmailAndPassword(email, password);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
